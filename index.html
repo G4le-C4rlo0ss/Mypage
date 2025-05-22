@@ -1,388 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>⚠¡¡INTRUSIÓN CONFIRMADA!!⚠</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulario de Contacto</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
-    
     body {
-      background-color: #000;
-      color: #ff0000;
-      font-family: 'Audiowide', cursive;
-      text-align: center;
-      padding: 0;
-      margin: 0;
-      overflow: hidden;
-      background-image: 
-        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><path d="M20,50 Q50,20 80,50 T140,50 T200,50" stroke="rgba(255,0,0,0.1)" fill="none" stroke-width="2"/></svg>'),
-        linear-gradient(to bottom, #300000, #000000);
-      background-size: 200px 200px, cover;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
     }
-    
-    .container {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 40px;
-      border: 4px solid #ff0000;
-      border-radius: 0;
-      background-color: rgba(0, 0, 0, 0.9);
-      box-shadow: 0 0 100px rgba(255, 0, 0, 0.8);
-      position: relative;
-      overflow: hidden;
-      z-index: 10;
+    form {
+      background: white;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    
-    .glitch-effect {
-      position: absolute;
-      top: 0;
-      left: 0;
+    input, textarea {
       width: 100%;
-      height: 100%;
-      background: 
-        linear-gradient(rgba(255,0,0,0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,0,0,0.1) 1px, transparent 1px);
-      background-size: 20px 20px;
-      opacity: 0.5;
-      z-index: -1;
-      animation: glitch 0.1s infinite;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-    
-    h1 {
-      font-size: 4em;
-      margin-bottom: 30px;
-      text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
-      animation: 
-        pulse 0.8s infinite alternate,
-        shake 0.2s infinite,
-        colorChange 3s infinite;
-      position: relative;
-      z-index: 1;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      background: linear-gradient(45deg, #ff0000, #ff4500, #ff0000);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      border-bottom: 3px dashed #ff0000;
-      padding-bottom: 20px;
+    button {
+      background: #007BFF;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
-    
-    p {
-      font-size: 1.8em;
-      margin-bottom: 25px;
-      position: relative;
-      z-index: 1;
-      text-shadow: 0 0 10px #ff0000;
-      animation: flicker 2s infinite;
+    .success {
+      color: green;
     }
-    
-    .warning-icon {
-      font-size: 8em;
-      margin-bottom: 20px;
-      display: block;
-      animation: 
-        spin 3s linear infinite,
-        pulse 1s infinite alternate;
-      filter: drop-shadow(0 0 20px #ff0000);
-      transform-origin: center;
-    }
-    
-    .biohazard-symbol {
-      position: absolute;
-      font-size: 15em;
-      opacity: 0.1;
-      z-index: -1;
-      animation: float 10s ease-in-out infinite;
-    }
-    
-    .matrix-rain {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      pointer-events: none;
-    }
-    
-    .tips {
-      text-align: left;
-      margin: 40px auto;
-      max-width: 800px;
-      padding: 30px;
-      background-color: rgba(255, 0, 0, 0.2);
-      border: 3px solid #ff0000;
-      border-left: 15px solid #ff0000;
-      position: relative;
-      z-index: 1;
-      box-shadow: inset 0 0 30px #ff0000;
-    }
-    
-    .tips li {
-      margin-bottom: 20px;
-      font-size: 1.5em;
-      list-style-type: none;
-      padding-left: 40px;
-      position: relative;
-      animation: slideIn 1s forwards;
-      opacity: 0;
-    }
-    
-    .tips li::before {
-      content: "☢";
-      position: absolute;
-      left: 0;
-      top: 0;
-      font-size: 1.5em;
-      filter: drop-shadow(0 0 5px #ff0000);
-    }
-    
-    .blood-splatter {
-      position: absolute;
-      font-size: 3em;
-      opacity: 0;
-      animation: 
-        splatter 3s forwards,
-        fadeOut 2s 3s forwards;
-      z-index: 100;
-      pointer-events: none;
-    }
-    
-    .emergency-flash {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(255, 0, 0, 0.7);
-      z-index: 1000;
-      animation: emergencyFlash 5s infinite;
-      pointer-events: none;
-      mix-blend-mode: screen;
-    }
-    
-    .hacked-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 10px;
-      background: linear-gradient(90deg, #ff0000, #000000, #ff0000);
-      z-index: 1001;
-      animation: hackedBar 0.5s infinite;
-    }
-    
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.05); }
-    }
-    
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
-      20%, 40%, 60%, 80% { transform: translateX(10px); }
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-50px) rotate(5deg); }
-    }
-    
-    @keyframes glitch {
-      0% { transform: translate(0); }
-      20% { transform: translate(-5px, 5px); }
-      40% { transform: translate(-5px, -5px); }
-      60% { transform: translate(5px, 5px); }
-      80% { transform: translate(5px, -5px); }
-      100% { transform: translate(0); }
-    }
-    
-    @keyframes colorChange {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-    
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-      20%, 22%, 24%, 55% { opacity: 0.3; }
-    }
-    
-    @keyframes splatter {
-      0% { transform: scale(0.1) translate(0, 0); opacity: 0; }
-      50% { opacity: 0.8; }
-      100% { transform: scale(1) translate(var(--tx), var(--ty)); opacity: 0.6; }
-    }
-    
-    @keyframes fadeOut {
-      to { opacity: 0; }
-    }
-    
-    @keyframes emergencyFlash {
-      0%, 40%, 45%, 50%, 55%, 60%, 100% { opacity: 0; }
-      42%, 47%, 52%, 57% { opacity: 0.7; }
-    }
-    
-    @keyframes hackedBar {
-      0% { background-position: 0 0; }
-      100% { background-position: 100px 0; }
-    }
-    
-    @keyframes slideIn {
-      to { transform: translateX(0); opacity: 1; }
-    }
-    
-    @media (max-width: 768px) {
-      h1 { font-size: 2.5em; }
-      p { font-size: 1.3em; }
-      .tips li { font-size: 1.2em; }
-      .warning-icon { font-size: 5em; }
+    .error {
+      color: red;
     }
   </style>
 </head>
 <body>
-  <div class="hacked-bar"></div>
-  <div class="emergency-flash"></div>
-  
-  <!-- Efecto Matrix Rain -->
-  <canvas id="matrix" class="matrix-rain"></canvas>
-  
-  <!-- Símbolos de biohazard flotantes -->
-  <div class="biohazard-symbol" style="top: 10%; left: 5%;">☣</div>
-  <div class="biohazard-symbol" style="top: 70%; right: 10%; animation-delay: 2s;">☢</div>
-  
-  <div class="container">
-    <div class="glitch-effect"></div>
-    
-    <span class="warning-icon">☠</span>
-    <h1>¡¡INTRUSIÓN CONFIRMADA!!</h1>
-    <p class="flashing-text">SE HA DETECTADO ACTIVIDAD MALICIOSA EN TU RED</p>
-    
-    <div class="tips">
-      <p style="font-size: 2em; text-align: center; animation: flicker 1s infinite;">¡¡ACCIÓN INMEDIATA REQUERIDA!!</p>
-      <ul>
-        <li style="--delay: 0.1s">TUS DATOS ESTÁN SIENDO EXFILTRADOS</li>
-        <li style="--delay: 0.3s">CREDENCIALES BANCARIAS EN PELIGRO</li>
-        <li style="--delay: 0.5s">RANSOMWARE DETECTADO EN TU RED</li>
-        <li style="--delay: 0.7s">DISPOSITIVOS VULNERABLES: 3 DETECTADOS</li>
-        <li style="--delay: 0.9s">DESCONECTA TODOS LOS DISPOSITIVOS AHORA</li>
-        <li style="--delay: 1.1s">LLAMA A SOPORTE TÉCNICO DE EMERGENCIA</li>
-      </ul>
-    </div>
-    
-    <p style="font-size: 2em; animation: pulse 0.5s infinite alternate;">⚠ ¡NO IGNORES ESTA ALERTA! ⚠</p>
-    
-    <div style="margin: 40px 0; font-size: 1.5em; animation: flicker 3s infinite;">
-      [ SISTEMA COMPROMETIDO: 87% ]<br>
-      [ TIEMPO ESTIMADO DE INFECCIÓN: 00:12:34 ]
-    </div>
-  </div>
-  
+  <h2>Formulario de Contacto</h2>
+  <form id="contactForm">
+    <input type="text" name="nombre" placeholder="Tu nombre" required />
+    <input type="email" name="email" placeholder="Tu correo" required />
+    <textarea name="mensaje" placeholder="Tu mensaje" required></textarea>
+    <button type="submit">Enviar</button>
+    <p id="responseMessage"></p>
+  </form>
+
   <script>
-    // Efecto Matrix Rain
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
-    
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    const katakana = '☠☢☣⚠️♻️⚡☣☢☠';
-    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const nums = '0123456789';
-    
-    const alphabet = katakana + latin + nums;
-    
-    const fontSize = 16;
-    const columns = canvas.width / fontSize;
-    
-    const rainDrops = [];
-    
-    for (let x = 0; x < columns; x++) {
-      rainDrops[x] = 1;
-    }
-    
-    const draw = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      ctx.fillStyle = '#ff0000';
-      ctx.font = fontSize + 'px monospace';
-      
-      for (let i = 0; i < rainDrops.length; i++) {
-        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-        ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-        
-        if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          rainDrops[i] = 0;
+    const form = document.getElementById("contactForm");
+    const messageElement = document.getElementById("responseMessage");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch("https://nombre-tu-api.onrender.com/enviar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          messageElement.textContent = "Formulario enviado correctamente.";
+          messageElement.className = "success";
+          form.reset();
+        } else {
+          throw new Error(result.error || "Error al enviar el formulario.");
         }
-        rainDrops[i]++;
+      } catch (err) {
+        messageElement.textContent = err.message;
+        messageElement.className = "error";
       }
-    };
-    
-    setInterval(draw, 30);
-    
-    // Efectos de sangre aleatorios
-    function createBloodSplatter() {
-      const splatter = document.createElement('div');
-      splatter.className = 'blood-splatter';
-      splatter.textContent = '✖';
-      splatter.style.left = Math.random() * 100 + '%';
-      splatter.style.top = Math.random() * 100 + '%';
-      splatter.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
-      splatter.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
-      splatter.style.fontSize = (Math.random() * 5 + 3) + 'em';
-      splatter.style.color = `hsl(${Math.random() * 30}, 100%, 50%)`;
-      document.body.appendChild(splatter);
-      
-      setTimeout(() => {
-        splatter.remove();
-      }, 5000);
-    }
-    
-    setInterval(createBloodSplatter, 300);
-    
-    // Efecto de parpadeo de emergencia
-    document.addEventListener('DOMContentLoaded', function() {
-      // Efecto de vibración constante
-      setInterval(() => {
-        document.body.style.transform = `translate(${(Math.random() - 0.5) * 5}px, ${(Math.random() - 0.5) * 5}px)`;
-      }, 50);
-      
-      // Efecto de sonido (simulado)
-      setTimeout(() => {
-        const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU...');
-        audio.volume = 0.3;
-        audio.loop = true;
-        // audio.play(); // Descomentar si quieres activar sonido (puede ser molesto)
-      }, 1000);
-      
-      // Animar elementos de la lista
-      document.querySelectorAll('.tips li').forEach((li, index) => {
-        li.style.animationDelay = li.style.getPropertyValue('--delay') || '0s';
-        li.style.transform = 'translateX(-100px)';
-        setTimeout(() => {
-          li.style.animation = 'slideIn 0.5s forwards';
-        }, index * 200 + 1000);
-      });
     });
-    
-    // Cambiar título dinámicamente para mayor dramatismo
-    const titles = [
-      "¡¡INTRUSIÓN CONFIRMADA!!",
-      "¡¡ATAQUE CIBERNÉTICO!!",
-      "¡¡ALERTA MÁXIMA!!",
-      "¡¡SISTEMA COMPROMETIDO!!",
-      "¡¡DATOS EN PELIGRO!!"
-    ];
-    
-    setInterval(() => {
-      document.querySelector('h1').textContent = titles[Math.floor(Math.random() * titles.length)];
-    }, 3000);
   </script>
 </body>
 </html>
