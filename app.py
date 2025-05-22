@@ -1,20 +1,16 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
 
-@app.route("/enviar", methods=["POST"])
-def recibir_formulario():
-    datos = request.get_json()
+@app.route('/')
+def index():
+    return "Servidor Flask en Railway funcionando."
 
-    nombre = datos.get("nombre")
-    email = datos.get("email")
-    mensaje = datos.get("mensaje")
-
-    print(f"Nombre: {nombre}\nEmail: {email}\nMensaje: {mensaje}")
-
-    return jsonify({"mensaje": "Formulario recibido correctamente."}), 200
+@app.route('/api/guardar', methods=['POST'])
+def guardar():
+    data = request.get_json()
+    print(data)  # aquí puedes guardar en la base de datos
+    return jsonify({'mensaje': 'Datos recibidos correctamente'}), 200
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
