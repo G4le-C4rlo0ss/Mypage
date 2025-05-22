@@ -34,14 +34,17 @@
             };
 
             try {
-                const response = await fetch("https://flask-contact-api-production.up.railway.app/api/contact", {
-
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(datos)
-                });
+                const response = fetch("https://flask-contact-api-production.up.railway.app/api/contact", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        nombre: "Carlos",
+        correo: "carlos@email.com",
+        mensaje: "Hola desde GitHub Pages"
+    })
+});
 
                 const resultado = await response.json();
                 document.getElementById('resultado').textContent = resultado.message;
