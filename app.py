@@ -5,8 +5,18 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# Configuración para PostgreSQL en Railway
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL').replace("postgres://", "postgresql://")
+# Obtener y limpiar la variable de entorno DATABASE_URL
+db_url = os.getenv('DATABASE_URL')
+if db_url:
+    # Limpiar espacios y saltos de línea
+    db_url = db_url.strip()
+    # Asegurar que el esquema sea 'postgresql://'
+    if db_url.startswith("postgres://"):
+        db_url = db_url.replace("postgres://", "postgresql://", 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_url
+else:
+    raise ValueError("La variable de entorno DATABASE_URL no está configurada")
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
