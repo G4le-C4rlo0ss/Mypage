@@ -7,8 +7,9 @@ app = Flask(__name__)
 CORS(app)  # Permite que tu frontend pueda comunicarse con el backend
 
 # Configura la base de datos PostgreSQL (cambia el valor en DATABASE_URL)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://usuario:password@host:puerto/dbname')
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
 db = SQLAlchemy(app)
 
