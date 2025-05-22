@@ -1,16 +1,42 @@
 from flask import Flask, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+import os
 
 app = Flask(__name__)
+CORS(app)  # Permite que tu frontend pueda comunicarse con el backend
 
-@app.route('/')
-def index():
-    return "Servidor Flask en Railway funcionando."
+# Configura la base de datos PostgreSQL (cambia el valor en DATABASE_URL)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://usuario:password@host:puerto/dbname')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-@app.route('/api/guardar', methods=['POST'])
-def guardar():
+db = SQLAlchemy(app)
+
+class Usuario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(100), nullable=False)  # En producción, encripta!
+
+@app.route('/api/registro', methods=['POST'])
+def registro():
     data = request.get_json()
-    print(data)  # aquí puedes guardar en la base de datos
-    return jsonify({'mensaje': 'Datos recibidos correctamente'}), 200
+    nombre = data.get('nombre')
+    email = data.get('email')
+    password = data.get('password')
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    if not nombre or not email or not password:
+        return jsonify({'message': 'Faltan datos'}), 400
+
+    # Verificar si el email ya existe
+    if Usuario.query.filter_by(email=email).first():
+        return jsonify({'message': 'El email ya está registrado'}), 400
+
+    nuevo_usuario = Usuario(nombre=nombre, email=email, password=password)
+    db.session.add(nuevo_usuario)
+    db.session.commit()
+
+    return jsonify({'message': 'Registro exitoso'}), 201
+
+if __name__ == '__main__':
+    app.run(debug=True)
